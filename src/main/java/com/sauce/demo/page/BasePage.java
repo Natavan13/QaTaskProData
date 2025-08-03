@@ -3,26 +3,36 @@ package com.sauce.demo.page;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public abstract class  BasePage {
 
-    public static WebDriver driver;
+    protected WebDriver driver;
+    protected WebDriverWait wait;
 
-    public void setDriver(WebDriver driver) {
-        BasePage.driver  = driver;
+    protected void setDriver(WebDriver driver) {
+        this.driver  = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
-    public WebElement findElement(By locator) {
-        return driver.findElement(locator);
+    protected WebElement findElement(By locator) {
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
-    public void click(By locator) {
+    protected void click(By locator) {
         findElement(locator).click();
     }
 
-    public void setText(By locator, String text) {
+    protected void setText(By locator, String text) {
         findElement(locator).clear();
         findElement(locator).sendKeys(text);
+    }
+
+    protected String getText(By locator) {
+        return findElement(locator).getText();
     }
 
 

@@ -27,6 +27,6 @@ public class Loginpage  extends BasePage{
         return clickLoginButton();
     }
     public String getErrorMessage(){
-        return findElement(this.err_message).getText();
+        return getText(err_message);
     }
 }
