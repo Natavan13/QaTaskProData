@@ -13,25 +13,25 @@ public abstract class  BasePage {
     protected WebDriver driver;
     protected WebDriverWait wait;
 
-    protected void setDriver(WebDriver driver) {
-        this.driver  = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    public BasePage(WebDriver driver) {
+        this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
 
-    protected WebElement findElement(By locator) {
+    public WebElement findElement(By locator) {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
-    protected void click(By locator) {
+    public void click(By locator) {
         findElement(locator).click();
     }
 
-    protected void setText(By locator, String text) {
+    public void setText(By locator, String text) {
         findElement(locator).clear();
         findElement(locator).sendKeys(text);
     }
 
-    protected String getText(By locator) {
+    public String getText(By locator) {
         return findElement(locator).getText();
     }
 

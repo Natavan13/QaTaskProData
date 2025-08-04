@@ -1,6 +1,7 @@
 package com.sauce.demo.page;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 
 public class CheckoutInformationPage extends BasePage {
     By first_name_field = By.id("first-name");
@@ -9,9 +10,13 @@ public class CheckoutInformationPage extends BasePage {
     By contninue_btn = By.className("btn_primary");
     By error_msg = By.cssSelector("checkout_info_wrapper h3");
 
+    public CheckoutInformationPage(WebDriver driver) {
+        super(driver);
+    }
+
     public FinishPage clickContinueBtn(){
         click(contninue_btn);
-        return new FinishPage();
+        return new FinishPage(driver);
     }
 
     public void fillFirstName(String firstName){
@@ -30,6 +35,15 @@ public class CheckoutInformationPage extends BasePage {
         fillFirstName("ewfd");
         fillLastName("wfd");
         clickContinueBtn();
+    }
+
+    public FinishPage fillCheckoutInformation(String username, String lastname, String postalcode) throws InterruptedException {
+        fillFirstName(username);
+        fillLastName(lastname);
+        fillPostalCode(postalcode);
+        clickContinueBtn();
+        Thread.sleep(2000);
+        return new FinishPage(driver);
     }
 
 
